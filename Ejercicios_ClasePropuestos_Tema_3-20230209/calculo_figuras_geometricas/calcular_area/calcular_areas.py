@@ -1,6 +1,7 @@
 # con esta funcion calculamos el area de cualquier paralerogramo (cuadrado, rectángulo)
 import math
 
+
 def area_paralelogramo(b, h=None, cuadrado=False):
     if not cuadrado:
         area_rectangulo = b * h
