@@ -2,6 +2,15 @@
 
 from math import pi
 
+def volumen_ortoedro(l, p, h):
+    '''
+    :param l = largo, p = profundidad, h = altura, vol = l * p * h
+    :volver volumen de un ortoedro
+    '''
+    volumen = l * p * h
+    return volumen
+
+
 def volumen_cubo(lado):
     '''
     :param lado, lo eleva al cubo
@@ -9,6 +18,7 @@ def volumen_cubo(lado):
     '''
     volumen = lado ** 3
     return volumen
+
 
 def volumen_prisma(lado, altura):
     '''
@@ -18,6 +28,7 @@ def volumen_prisma(lado, altura):
     base = lado**2
     volumen = base * altura
     return volumen
+
 
 def volumen_piramide(lado, altura):
     '''
@@ -29,6 +40,7 @@ def volumen_piramide(lado, altura):
     return volumen
 
 
+
 def volumen_cilindro(radio, altura):
     '''
     :param radio y altura, vol = (pi * r**2) * alt
@@ -37,6 +49,7 @@ def volumen_cilindro(radio, altura):
     base = pi * radio ** 2
     volumen = base * altura
     return volumen
+
 
 def volumen_cono(radio, altura):
     '''
@@ -47,10 +60,11 @@ def volumen_cono(radio, altura):
     volumen = base * altura
     return volumen
 
+
 def volumen_esfera(radio):
     '''
     :param radio, vol = r**3
     :return: volumen esfera
     '''
-    volumen = (4/3 * pi) * radio **3
+    volumen = (4/3 * pi) * radio ** 3
     return volumen
