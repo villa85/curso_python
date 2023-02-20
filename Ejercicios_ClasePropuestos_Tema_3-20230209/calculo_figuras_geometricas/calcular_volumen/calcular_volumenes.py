@@ -2,12 +2,9 @@
 
 from math import pi
 
-def volumen_ortoedro(l, p, h):
-    '''
-    :param l = largo, p = profundidad, h = altura, vol = l * p * h
-    :volver volumen de un ortoedro
-    '''
-    volumen = l * p * h
+def volumen_ortoedro(lado, profundidad , altura):
+
+    volumen = lado * profundidad * altura
     return volumen
 
 

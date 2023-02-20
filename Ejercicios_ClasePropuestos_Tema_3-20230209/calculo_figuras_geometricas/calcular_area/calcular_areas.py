@@ -2,6 +2,12 @@
 import math
 
 
+def volumen_ortoedro(l, p, h):
+
+    volumen = l * p * h
+    return volumen
+
+
 def area_paralelogramo(b, h=None, cuadrado=False):
     if not cuadrado:
         area_rectangulo = b * h
