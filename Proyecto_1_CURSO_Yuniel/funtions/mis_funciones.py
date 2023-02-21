@@ -6,7 +6,7 @@ def texto_en_minusculas(cadena):
     parametros: String
     return: String
     """
-    texto = " ".join(cadena.lower())
+    texto = "".join(cadena.lower())
     return texto
 
 def split_cadena(cadena):
