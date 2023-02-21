@@ -8,4 +8,10 @@ todo_minusculas = mf.texto_en_minusculas(articulo) # 3. Convertir el texto Norma
 texto_no_signos = mf.elimina_signos_puntuacion(todo_minusculas) # 4 Identificar, mostrar y eliminar signos de puntuación
 mostrar_signos_del_texto = mf.elimina_repetidos(mf.elimina_signos_puntuacion(todo_minusculas, signos = True))
 
-print(mostrar_signos_del_texto)
+# print(mf.normalize(texto_no_signos, find = True), end= " \n \n ")
+texto_sin_tildes = mf.normalize(texto_no_signos)
+texto_sin_numeros = mf.extrae_numeros(texto_sin_tildes)
+numeros = mf.extrae_numeros(texto_sin_tildes, number = True)
+texto_sin_numeros = mf.extrae_numeros(texto_sin_tildes)
+print(f"{numeros}")
+print(f"{texto_sin_numeros}")

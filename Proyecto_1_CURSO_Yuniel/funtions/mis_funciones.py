@@ -44,3 +44,35 @@ def elimina_repetidos(cadena):
         if cadena.count(i) > 1:
             cadena.remove(i)
     return cadena
+
+def normalize(s, find = False):
+    if find:
+        lista = ["á", "é", "í", "ó", "ú"]
+        lista_sig = []
+        for i in s:
+            if i in lista:
+                lista_sig.append(i)
+        return lista_sig
+    else:
+        replacements = (
+            ("á", "a"),
+            ("é", "e"),
+            ("í", "i"),
+            ("ó", "o"),
+            ("ú", "u"),
+        )
+        for a, b in replacements:
+            s = s.replace(a, b).replace(a.upper(), b.upper())
+        return s
+
+def extrae_numeros(s, number = False):
+    patron = '[^0-9]+'
+    p = '[0-9]+'
+    l = []
+    if number:
+        l = re.findall(p, s)
+        return l
+    else:
+        l = re.findall(patron, s)
+        cadena = "".join(l)
+        return cadena
