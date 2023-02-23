@@ -76,3 +76,23 @@ def extrae_numeros(s, number = False):
         l = re.findall(patron, s)
         cadena = "".join(l)
         return cadena
+
+def extrae_mayusculas(s, siglas = False):
+    patron = '[A-Z][a-z|á|é|í|ó|ú]+' # Palablas en mayusculas
+    p = '[A-Z][A-Z]+' # Siglas
+    l = []
+    if siglas:
+        l = re.findall(p, s)
+        return l
+    else:
+        l = re.findall(patron, s)
+        return l
+
+def elimina_stop_words(cadena, stop_w):
+    l = []
+    for line in cadena.split():
+        if line not in stop_w:
+            l.append(line)
+            s = " ".join(l)
+    return s
+
