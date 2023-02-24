@@ -96,3 +96,29 @@ def elimina_stop_words(cadena, stop_w):
             s = " ".join(l)
     return s
 
+
+def contar_palabras(s):
+    l = s.split()
+    lista_tupla = []
+    result = []
+    for i in l:
+        t = i, l.count(i)
+        lista_tupla.append(t)
+    for j in lista_tupla:
+        if j not in result:
+            result.append(j)
+    return result
+
+# def contar_palabras(s):
+#     l = s.split()
+#     lista_tupla = []
+#     result = {}
+#     for i in l:
+#         t = i, l.count(i)
+#         lista_tupla.append(t)
+#     for j in lista_tupla:
+#         if j not in result.keys():
+#             result[j] = 1
+#         else:
+#             result[j] += 1
+#     return list(result.keys())
