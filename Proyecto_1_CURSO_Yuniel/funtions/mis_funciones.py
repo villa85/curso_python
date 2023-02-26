@@ -20,32 +20,33 @@ def elimina_signos_puntuacion(cadena, signos = False):
     return: String o Lista
     """
     if signos:
-        patron = '[¡!.*“”"(),¿?;]+'
+        patron = '[^a-zA-Z0-9|á|é|í|ó|ú|ñ|\w ]+'
         texto = re.findall(patron, cadena)
-        lista = []
-        cadena = ""
-        for i in texto:
-            if len(i) > 0:
-                # print(len(i))
-                lista.append(i)
-        return lista
+        return texto
     else:
-        patron = '[^¡!.*“”"(),¿?; ]+'
+        patron =  '[a-zA-Z0-9|á|é|í|ó|ú|ñ|\w]+'
         texto = " ".join(re.findall(patron, cadena))
         return texto
 
 def elimina_repetidos(cadena):
     """
     Función que devuelve una lista de sin elementos repetidos
-    parametros: Lista
+    parametros: Lista, Booleano
     return: Lista
     """
+    lista =[]
     for i in cadena:
-        if cadena.count(i) > 1:
-            cadena.remove(i)
-    return cadena
+        if i not in lista:
+            lista.append(i)
+    return lista
 
-def normalize(s, find = False):
+def letras_acentuadas(s, find = False):
+    """
+    Función que devuelve una lista con todas las letras acentuadas o
+    reemplaza las letras acentuadas por las mismas sin acentuar
+    parametros: String, Booleano
+    return: String o Lista
+    """
     if find:
         lista = ["á", "é", "í", "ó", "ú"]
         lista_sig = []
@@ -107,18 +108,5 @@ def contar_palabras(s):
     for j in lista_tupla:
         if j not in result:
             result.append(j)
-    return result
-
-# def contar_palabras(s):
-#     l = s.split()
-#     lista_tupla = []
-#     result = {}
-#     for i in l:
-#         t = i, l.count(i)
-#         lista_tupla.append(t)
-#     for j in lista_tupla:
-#         if j not in result.keys():
-#             result[j] = 1
-#         else:
-#             result[j] += 1
-#     return list(result.keys())
+    for k in result:
+        print(f"{k[0]}  {k[1]} ")
