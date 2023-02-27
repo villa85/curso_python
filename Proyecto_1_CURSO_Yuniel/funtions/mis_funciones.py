@@ -89,24 +89,92 @@ def extrae_mayusculas(s, siglas = False):
         l = re.findall(patron, s)
         return l
 
-def elimina_stop_words(cadena, stop_w):
+def elimina_stop_words(cadena, stop_w, stw = False):
+    """
+    Función que devuelve el texto sin la stop_words o las stop_words encontrdas
+    parametros: String, Stop_Words, Booleano
+    return: String
+    """
     l = []
-    for line in cadena.split():
-        if line not in stop_w:
-            l.append(line)
-            s = " ".join(l)
-    return s
+    lista = cadena.split()
+    lista_stop_w = stop_w.split()
+    if stw: # si stw es True devuelve las stop_word
+        for i in lista:
+            if i in stop_w:
+                l.append(i)
+                s = " ".join(l)
+        return s
+    else: # el texto sin stop_word
+        for i in lista_stop_w:
+            for j in lista:
+                if i == j:
+                    lista.remove(j)
+        s = " ".join(lista)
+        return s
+        # for i in lista:
+        #     if i not in stop_w:
+        #         l.append(i)
+        #         s = " ".join(l)
+        # return s
 
 
 def contar_palabras(s):
     l = s.split()
     lista_tupla = []
     result = []
+    t = []
     for i in l:
         t = i, l.count(i)
         lista_tupla.append(t)
     for j in lista_tupla:
         if j not in result:
             result.append(j)
-    for k in result:
-        print(f"{k[0]}  {k[1]} ")
+    # for k in result:
+    #     t.append((result[0], float(result[1])))
+    return result
+
+def extraer_url(s):
+    patron_5 = "http[s]*\S+" #'https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+' # URL  "http[s]*\S+"
+    url_list = []
+    url_list = re.findall(patron_5, s)
+    for i in url_list:
+        if i in s:
+            s = re.sub(i, "", s)
+    return s
+
+def extraer_usuarios(s):
+    patron_5 = "(@[^  \ ]*)"  # Usuarios @usuarioabc
+    user_list = []
+    user_list = re.findall(patron_5, s)
+    for i in user_list:
+        if i in s:
+            s = re.sub(i, "", s)
+    return s
+
+def normaliza(s): # toma el archivo de palabras posistivas o negativas y la convierte en una lista de tuplas [("palabla", float)]
+    l = (s.split("\n"))
+    li = []
+    t = []
+    for i in l:
+        li = i.split()
+        t.append((li[0], float(li[1])))
+    return t
+
+def calculo_puntuacion_palabras(p, texto):
+    """
+    Función que devuelve listado con la puntuación por palabra de un texto
+    parametros: lista de palabras con su puntuacion, texto normalizado con la cantidad por palabras
+    return: lista de palabras y puntuacion
+    """
+    lista_total_palabras = []
+    for i in p:
+        for j in texto:
+            if i[0] == j[0]:
+                lista_total_palabras.append((i[0], i[1]*j[1]))
+    return lista_total_palabras
+
+def total_puntuacion(l):
+    suma = 0
+    for i in l:
+        suma += i[1]
+    return suma
