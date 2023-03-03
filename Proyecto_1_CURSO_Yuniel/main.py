@@ -1,17 +1,28 @@
 from funtions import mis_funciones as mf
 import sys
 import re
+import time
+
+def timer(func):
+    def inner(*args, **kwargs):
+        t1 = time.time()
+        f = func(*args, **kwargs)
+        t2 = time.time()
+        print('La función tardó {0} segundos'.format(t2-t1))
+        return f
+    return inner
 
 try:
     s_weets_file = 'sentweets_esp.txt'
     file_s = open("datos\\"+s_weets_file, encoding="utf8") # PASO 11 CONTROL DE EXCEPCIONES
-    sentweets = file_s.read(10000)
+    sentweets = file_s.read()
     file_s.close()
 except IOError as error:
     print('Problema con el fichero: {}.  {}'.format(file_s, error) )
 except:  # si es un error diferente a IOError
     print("Error inesperado:", sys.exc_info()[0])
     raise
+
 
 try:
     positive_file = 'positive_lex.txt'
@@ -49,13 +60,15 @@ except:  # si es un error diferente a IOError
     raise
 
 txt_minusculas = mf.texto_en_minusculas(sentweets)
+mayus = mf.extrae_mayusculas(sentweets)
+urls = mf.extraer_url(sentweets)
 texto_sin_signos = mf.elimina_signos_puntuacion(txt_minusculas)
 texto_sin_letras_acent_sentweets = mf.letras_acentuadas(texto_sin_signos)
 texto_s_sin_numeros = mf.extrae_numeros(texto_sin_letras_acent_sentweets)
 texto_sin_tildes_stop_words = mf.letras_acentuadas(stop_words)
 texto_sentweets_filtrado_no_stop_words = mf.elimina_stop_words(texto_s_sin_numeros, texto_sin_tildes_stop_words)
 
-print(texto_sentweets_filtrado_no_stop_words)
+print(urls)
 
 # positive_sin_acentos = mf.letras_acentuadas(positive)
 # negative_sin_acentos = mf.letras_acentuadas(negative)
@@ -83,3 +96,8 @@ print(texto_sentweets_filtrado_no_stop_words)
 # texto_sin_url = mf.extraer_url(sentweets)
 # texto_sin_usuarios = mf.extraer_usuarios(sentweets)
 # print(lista_positivas)
+"""
+archivo_sw = open('datos/sentweets_esp.txt', encoding="utf8")
+comentarios = archivo_sw.read()
+
+generador_comentario = (comentario for comment in re.split("@\w+\s", comentarios))"""
