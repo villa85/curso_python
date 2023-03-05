@@ -23,7 +23,7 @@ def texto_en_minusculas(cadena):
 def split_cadena(cadena):
     return cadena.split(" ")
 
-def elimina_signos_puntuacion(cadena, signos = False):
+def elimina_signos_puntuacion(s, signos = False):
     """
     Función que devuelve una cadena sin signos de puntuación o
     devuelve un listado con todos los signos de puntuación
@@ -32,12 +32,12 @@ def elimina_signos_puntuacion(cadena, signos = False):
     """
     if signos:
         patron = '[^a-zA-Z0-9|á|é|í|ó|ú|ñ|\w ]+'
-        texto = re.findall(patron, cadena)
+        texto = re.findall(patron, s)
         return texto
     else:
-        patron =  '[a-zA-Z0-9|á|é|í|ó|ú|ñ|\w]+'
-        texto = " ".join(re.findall(patron, cadena))
-        return texto
+        patron =  '[^a-zA-Z0-9|á|é|í|ó|ú|ñ|\w]+'
+        s = re.sub("j[aeoujm]+","",s) # elimina las risas
+        return re.sub(patron, " ", s)
 
 def elimina_repetidos(cadena):
     """
@@ -79,18 +79,16 @@ def letras_acentuadas(s, find = False):
 
 def extrae_numeros(s, number = False):
     """
-    Función que devuelve un testo sin números o una lista con los números encontrados
+    Función que devuelve un texto sin números o uno con los números encontrados
     parametros: String, Booleano
-    return: String o Lista
+    return: String
     """
-    patron = '[^0-9]+'
-    p = '[0-9]+'
+    patron = '[0-9]+'
+    p = '[^0-9]+'
     if number:
-        return re.findall(p, s)
+        return re.sub(p, " ", s)
     else:
-        l = re.findall(patron, s)
-        cadena = "".join(l)
-        return cadena
+        return re.sub(patron, "", s)
 
 def extrae_mayusculas(s, siglas = False):
     """
@@ -105,8 +103,6 @@ def extrae_mayusculas(s, siglas = False):
     else:
         return re.findall(patron, s)
 
-
-@timer
 def elimina_stop_words(cadena, stop_w, stw = False):
     """
     Función que devuelve el texto sin la stop_words o las stop_words encontrdas
@@ -161,12 +157,8 @@ def extraer_usuarios(s):
     return: String
     """
     patron_5 = "(@[^  \ ]*)"  # Usuarios @usuarioabc
-    user_list = []
-    user_list = re.findall(patron_5, s)
-    for i in user_list:
-        if i in s:
-            s = re.sub(i, "", s)
-    return s
+    return re.sub(patron_5, "", s)
+
 
 def normaliza(s):
     """

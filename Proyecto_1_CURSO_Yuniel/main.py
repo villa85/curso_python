@@ -15,7 +15,7 @@ def timer(func):
 try:
     s_weets_file = 'sentweets_esp.txt'
     file_s = open("datos\\"+s_weets_file, encoding="utf8") # PASO 11 CONTROL DE EXCEPCIONES
-    sentweets = file_s.read()
+    sentweets = file_s.read(10000)
     file_s.close()
 except IOError as error:
     print('Problema con el fichero: {}.  {}'.format(file_s, error) )
@@ -60,15 +60,12 @@ except:  # si es un error diferente a IOError
     raise
 
 txt_minusculas = mf.texto_en_minusculas(sentweets)
-mayus = mf.extrae_mayusculas(sentweets)
-urls = mf.extraer_url(sentweets)
 texto_sin_signos = mf.elimina_signos_puntuacion(txt_minusculas)
 texto_sin_letras_acent_sentweets = mf.letras_acentuadas(texto_sin_signos)
 texto_s_sin_numeros = mf.extrae_numeros(texto_sin_letras_acent_sentweets)
 texto_sin_tildes_stop_words = mf.letras_acentuadas(stop_words)
 texto_sentweets_filtrado_no_stop_words = mf.elimina_stop_words(texto_s_sin_numeros, texto_sin_tildes_stop_words)
-
-print(urls)
+cuantas = mf.contar_palabras(texto_sentweets_filtrado_no_stop_words)
 
 # positive_sin_acentos = mf.letras_acentuadas(positive)
 # negative_sin_acentos = mf.letras_acentuadas(negative)
