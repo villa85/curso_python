@@ -1,28 +1,23 @@
-def lista_compra():
-    l = []
-    f = ""
-    stop = True
-    while stop:
-        f = input("Ingrese procductos a la lista de la compra (Fin para finalizar):  ")
-        if f.lower() != "fin":
-            l.append(f)
-        else:
-            stop = False
+# Introduzca su código aqui
+lista = [3, 67, "cat", [56, 57, "dog"], [5, 6, "bird" ], 3.14, [96, 85, "leche", 100], False]
+
+
+def une_listas(l):
+
+    p =0
+    c = len(l)
+
+    while c > 0:
+        for i in l:
+            if isinstance(i, list):
+                p = l.index(i)
+                lv = l.pop(p)
+                for j in range(len(lv)):
+                    l.insert(p, lv[j])
+                    p +=1
+        c -= 1
     return l
 
-l = lista_compra()
-print(f"{l}")
+l = une_listas(lista)
 
-def cant_x_prod(lista_p):
-    d = {}
-    cant = len(lista_p)
-    while cant > 0:
-        for i in lista_p:
-            c = input(f"Introduzca la cantidad de {i}: ")
-            d.update( {i: c})
-            cant -= 1
-    return d
-
-# z = ["agua", "pan", "aceite"]
-d = cant_x_prod(l)
-print(d)
+print(l)
